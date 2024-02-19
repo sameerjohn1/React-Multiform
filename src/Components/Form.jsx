@@ -1,9 +1,22 @@
 import React, { useState } from "react";
+import SignupInfo from "./SignupInfo";
+import PersonalInfo from "./PersonalInfo";
+import OtherInfo from "./OtherInfo";
 
 const Form = () => {
   const [page, setPage] = useState(0);
 
   const FormTitles = ["Sign Up", "Personal Info", "Other"];
+
+  const PageDisplay = () => {
+    if (page === 0) {
+      return <SignupInfo />;
+    } else if (page === 1) {
+      return <PersonalInfo />;
+    } else {
+      return <OtherInfo />;
+    }
+  };
   return (
     <div className="form">
       <div className="progressbar"></div>
@@ -11,7 +24,7 @@ const Form = () => {
         <div className="header">
           <h1>{FormTitles[page]}</h1>
         </div>
-        <div className="body"></div>
+        <div className="body">{PageDisplay()}</div>
         <div className="footer">
           <button
             disabled={page == 0}
