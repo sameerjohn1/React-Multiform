@@ -5,16 +5,26 @@ import OtherInfo from "./OtherInfo";
 
 const Form = () => {
   const [page, setPage] = useState(0);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    firstName: "",
+    lastName: "",
+    username: "",
+    nationality: "",
+    other: "",
+  });
 
   const FormTitles = ["Sign Up", "Personal Info", "Other"];
 
   const PageDisplay = () => {
     if (page === 0) {
-      return <SignupInfo />;
+      return <SignupInfo formData={formData} setFormData={setFormData} />;
     } else if (page === 1) {
-      return <PersonalInfo />;
+      return <PersonalInfo formData={formData} setFormData={setFormData} />;
     } else {
-      return <OtherInfo />;
+      return <OtherInfo formData={formData} setFormData={setFormData} />;
     }
   };
   return (
@@ -39,12 +49,17 @@ const Form = () => {
             Prev
           </button>
           <button
-            disabled={page == FormTitles.length - 1}
+            // disabled={page == FormTitles.length - 1}
             onClick={() => {
-              setPage((currPage) => currPage + 1);
+              if (page === FormTitles.length - 1) {
+                alert("Form Submitted");
+                console.log(formData);
+              } else {
+                setPage((currPage) => currPage + 1);
+              }
             }}
           >
-            Next
+            {page === FormTitles.length - 1 ? "Submit" : "Next"}
           </button>
         </div>
       </div>
